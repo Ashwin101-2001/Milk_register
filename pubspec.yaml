@@ -34,6 +34,8 @@ dependencies:
   provider: ^3.1.0
   dropdown_formfield: ^0.1.3
   flutter_launcher_icons: ^0.9.0
+  background_fetch: ^0.7.1
+
 
 
 dev_dependencies:
@@ -41,6 +43,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_launcher_icons: "^0.9.0"
+
 
 flutter_icons:
     android: "launcher_icon"
@@ -64,6 +67,8 @@ flutter:
     - android/assets/irs.jpg
     - android/assets/bday.png
     - android/assets/ptt.jpeg
+    - android/assets/ak123.jpg
+    - android/assets/ak12.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

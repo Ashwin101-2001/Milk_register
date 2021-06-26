@@ -22,6 +22,7 @@ class calculateState extends State<calculate> {
   double cost=0.0;
   double ppl= 44;
 
+
   @override
   void initState() {
     print('initstate calc');
@@ -68,11 +69,54 @@ class calculateState extends State<calculate> {
               onPressed:() {Navigator.pushReplacementNamed(context, 'home');},
             ),],),
           body:Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+
+                  image: AssetImage("android/assets/ak12.jpg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
               child:Center(
                   child:Column(
 
                       children:<Widget>[
                         SizedBox(height:30.0),
+                        Container(
+
+                            child:Center(
+                                child:RichText(
+                                  text: TextSpan(
+                                      text: '',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                      children: <WidgetSpan>[
+                                        WidgetSpan(
+                                          child:  CircleAvatar(
+                                            radius: 25.0,
+                                            //backgroundColor:Colors.yellow[800] ,
+                                            //backgroundImage: NetworkImage('https://www.google.com/imgres?imgurl=https%3A%2F%2Fpng.pngtree.com%2Fpng-clipart%2F20190614%2Foriginal%2Fpngtree-vector-milk-icon-png-image_3774283.jpg&imgrefurl=https%3A%2F%2Fpngtree.com%2Ffreepng%2Fvector-milk-icon_3774283.html&tbnid=zc8qfBrPVlCqLM&vet=12ahUKEwj30sigj6DuAhVp2nMBHe8HDaIQMygDegUIARCHAQ..i&docid=kT-RNCJ_rfKOhM&w=1024&h=1024&q=milk%20icon%20pictures.png&ved=2ahUKEwj30sigj6DuAhVp2nMBHe8HDaIQMygDegUIARCHAQ'),
+                                            backgroundImage: AssetImage("android/assets/milk-bottle.png"),
+                                          ),
+
+
+                                        ),
+                                        WidgetSpan(
+                                             child: FlatButton(
+
+                                                 onPressed:(){
+                                                   
+
+                                                 },
+                                                 child: Text("$ppl",style:TextStyle())),
+
+                                        )
+
+                                      ]
+                                  ),
+                                )
+                            ))
                         Card(
                           margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
                           child: ListTile(

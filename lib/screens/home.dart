@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:milk_register/utils/Databasehelper.dart';
 import 'package:provider/provider.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
@@ -14,13 +15,35 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-   String month;
+ static const platformMethodChannel =
+  const MethodChannel('heartbeat.fritz.ai/native');
+  String month;
    String year;
    List<double> qlist= List(31);
    int nothing=1;
+ final formKey = new GlobalKey<FormState>();
+
+ Future<Null> _launch() async {
+
+   print(' press ');
 
 
-  final formKey = new GlobalKey<FormState>();
+   try { print('ok');
+   final String result =
+   await platformMethodChannel.invokeMethod("cancel");
+   print(result);
+
+   } on PlatformException catch (e) {
+
+    String s = "Can't do native stuff ${e.message}.";
+     print(s);
+   }
+
+ }
+
+
+
+
   @override
   initState(){
     print('initstate');
@@ -39,7 +62,150 @@ class _HomeState extends State<Home> {
       setarray();
 
   }
-  @override
+ @override
+ Widget build(BuildContext context) {
+   print('building home');
+
+   return Scaffold(
+
+     appBar: AppBar(
+       backgroundColor: Colors.black,
+       title:Center(child: Text('CALENDAR',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.yellow[800],backgroundColor: Colors.black),)),
+       actions: [FlatButton(
+
+         child:Icon(Icons.calculate,color:Colors.yellow[800]),
+         onPressed:() {
+           Navigator.pushReplacement(
+             context,
+             MaterialPageRoute(
+                 builder: (context) => calculate(m: this.month,y: this.year)),
+           );
+         },
+       ),
+
+            FlatButton(
+
+           child:Icon(Icons.thumb_down_off_alt,color:Colors.yellow[800]),
+           onPressed:() {
+             _launch();
+           },
+         ),
+
+       ],
+     ),
+
+
+     body: ListView(
+
+           children: [
+           Form(
+           key:formKey,
+           child: Container(
+             child: Column(
+               children: [
+                 getFormMonth(),
+                 getFormYear(),
+
+
+               ],
+             ),
+           ),
+         ),
+
+         getList()
+       ],
+
+
+       ),);
+
+
+
+
+
+
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  Widget getFormMonth()
@@ -165,14 +331,14 @@ class _HomeState extends State<Home> {
    Widget getList(){
      int count =getcount(this.month,this.year);
     return  Container(
-      /*decoration: BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("android/assets/ptt.jpeg"),
+          image: AssetImage("android/assets/ak123.jpg"),
           fit: BoxFit.cover,
         ),
-      ), */
+      ),
 
-      color: Colors.black12,
+      //color: Colors.black12,
 
       child: GridView.count(
         crossAxisCount: 3,
@@ -184,6 +350,11 @@ class _HomeState extends State<Home> {
         children: List.generate(count, (index) {
           int index1=index+1;
           double qmilk=qlist[index];
+          MaterialColor c=Colors.brown;
+
+          if(qmilk==0.0)
+            {c=Colors.pink;}
+
 
 
 
@@ -202,7 +373,7 @@ class _HomeState extends State<Home> {
                   child:Column(
                       children:<Widget>[ Text('$index1 ',style: TextStyle(color:Colors.blue[800],fontSize: 50),),
                         SizedBox(height: 2.0,),
-                        Center(child: Text('$qmilk ',style: TextStyle(color:Colors.brown,fontSize: 30),))]
+                        Center(child: Text('$qmilk ',style: TextStyle(color:c,fontSize: 30),))]
                   )
               ),
             ),
@@ -230,87 +401,15 @@ class _HomeState extends State<Home> {
      setState(() {
        nothing=2;
      });
-
-
-
    }
 
-
-
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    print('building home');
-
-    return Scaffold(
-
-
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          title:Center(child: Text('CALENDAR',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.yellow[800],backgroundColor: Colors.black),)),
-          actions: [FlatButton(
-
-            child:Icon(Icons.calculate,color:Colors.yellow[800]),
-            onPressed:() {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => calculate(m: this.month,y: this.year)),
-              );
-            },
-          ),
-           ],
-        ),
-
-
-      body: SingleChildScrollView(
-        scrollDirection:  Axis.vertical,
-        child: ListView(
-          shrinkWrap: true,
-             scrollDirection: Axis.vertical,
-             //mainAxisSize: MainAxisSize.min,
-            children: [
-              Form(
-                key:formKey,
-                child: Container(
-                  child: Column(
-                    children: [
-                      getFormMonth(),
-                      getFormYear(),
-
-
-                    ],
-                  ),
-                ),
-              ),
-                 // SingleChildScrollView(
-                    //scrollDirection: Axis.vertical,
-                       //child:
-                       //ListView(
-                           //children: [
-                             getList()
-                           //],
-                       //scrollDirection: Axis.vertical,
-                       //shrinkWrap: true,
-                         //),
-                  //),
-
-
-
-            ],
-          ),
-      ),
-
-
-
-    );
-
-
-  }
 }
+
+
+
+
+
+
  int getcount(String m, String y)
  { int month =int.parse(m);
    int year = int.parse(y);

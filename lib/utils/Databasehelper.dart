@@ -44,6 +44,7 @@ class DatabaseHelper {
     Directory directory = await getApplicationDocumentsDirectory();
     print(directory.toString());
     String path = directory.path + 'milk.db';
+    print("$path");
 
     // Open/create the database at a given path
     var notesDatabase = await openDatabase(path, version: 1, onCreate: _createDb);

@@ -25,6 +25,7 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
     compileSdkVersion 29
 
     lintOptions {
@@ -38,6 +39,7 @@ android {
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        targetSdkVersion rootProject.ext.targetSdkVersion
     }
 
     buildTypes {
