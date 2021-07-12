@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.media.Ringtone;
@@ -51,7 +52,9 @@ public class service extends BroadcastReceiver {
             bigText.setSummaryText("Daily remainder");
 
             mBuilder.setContentIntent(pendingIntent);
-            mBuilder.setSmallIcon(android.R.drawable.sym_def_app_icon);
+            mBuilder.setSmallIcon(R.mipmap.launcher_icon);
+            mBuilder .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                    R.mipmap.launcher_icon));
             mBuilder.setContentTitle(" Click to add milk for today ");
             mBuilder.setTimeoutAfter(600000);
             int nonTransparentRed = Color.argb(255, 255, 0, 0);
